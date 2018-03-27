@@ -3,6 +3,7 @@
 #include <stdlib.h>
  
 #include "car.h"
+
 #include "queue.c"
  
 void list_with_ints();
@@ -12,6 +13,7 @@ void free_string(void *data);
  
 int main(int argc, char *argv[])
 {
+
   node_t *head = NULL;
     int ret;
 
@@ -34,6 +36,9 @@ int main(int argc, char *argv[])
 
  /* printf("Loading int demo...\n");
 
+  printf("Loading int demo...\n");
+
+
   list list;
   struct _car carSize;  
   list_new(&list, sizeof(carSize), NULL);        
@@ -46,6 +51,7 @@ int main(int argc, char *argv[])
   char endPoint = (carSize.finalPosition);
 
   printf (" End Point: %c\n", (endPoint) );
+
 */
 }
  
