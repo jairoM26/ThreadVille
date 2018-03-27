@@ -3,6 +3,8 @@
 #include <stdlib.h>
  
 #include "car.h"
+
+#include "queue.c"
  
 void list_with_ints();
 void list_with_strings();
@@ -11,7 +13,31 @@ void free_string(void *data);
  
 int main(int argc, char *argv[])
 {
+
+  node_t *head = NULL;
+    int ret;
+
+    enqueue(&head, 11);
+    enqueue(&head, 22);
+    enqueue(&head, 33);
+    enqueue(&head, 44);
+
+    print_list(head);
+    
+    while ((ret=dequeue(&head)) > 0) {
+        printf("dequeued %d\n", ret);
+    }
+    printf("done. head=%p\n", head);
+
+    return 0;
+
+
+
+
+ /* printf("Loading int demo...\n");
+
   printf("Loading int demo...\n");
+
 
   list list;
   struct _car carSize;  
@@ -26,6 +52,7 @@ int main(int argc, char *argv[])
 
   printf (" End Point: %c\n", (endPoint) );
 
+*/
 }
  
 
