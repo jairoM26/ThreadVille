@@ -4,10 +4,12 @@
 #include <stdio.h>
 #include <string.h>
 /* TO USE PTHREAD LIBRARY*/
-#include <pthread.h>
-#include <stdio.h>
+
 /*************************/
 #include "list.h"
+#include "queue.h"
+
+
 
 
 struct _car

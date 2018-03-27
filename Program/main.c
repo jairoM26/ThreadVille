@@ -1,43 +1,59 @@
-#include <stdio.h>
-#include <string.h>
-#include <stdlib.h>
- 
-#include "car.h"
 
-#include "queue.c"
+#include <string.h>
  
-void list_with_ints();
-void list_with_strings();
+#include <pthread.h>
+#include <stdio.h>
+#include <stdlib.h>
+#include <unistd.h>
+
+#include "car.h"
+//#include "queue.c"
  
-void free_string(void *data);
+//void list_with_ints();
+//void list_with_strings();
+ 
+//void free_string(void *data);
  
 int main(int argc, char *argv[])
 {
 
-  node_t *head = NULL;
-    int ret;
+  
+  //pthread_t thread2;
 
-    enqueue(&head, 11);
-    enqueue(&head, 22);
-    enqueue(&head, 33);
-    enqueue(&head, 44);
+  list list;
+  struct _car newCar;  
+  list_new(&list, sizeof(newCar), NULL);        
 
-    print_list(head);
-    
-    while ((ret=dequeue(&head)) > 0) {
-        printf("dequeued %d\n", ret);
-    }
-    printf("done. head=%p\n", head);
+  
+  createCar(3, "lamborgini",0,'A','B',3,1.5,50.5,&list);
+  
+  list_head(&list,&newCar,NULL);
 
-    return 0;
+  char endPoint = (newCar.finalPosition);
 
+  printf (" End Point: %c\n", (endPoint) );
 
 
+
+  //pthread_create( &thread1, NULL, carManager, (void*)& newCar);
+
+  for (int i = 0; i<3;i++)
+  {
+    pthread_t thread1;
+    struct _car newCar2;
+
+    createCar(3, "lamborgini",0,'A','B',3,1.5,50.5,&list);
+  
+    list_head(&list,&newCar2,NULL);
+
+    char endPoint = (newCar2.finalPosition);
+
+    pthread_create( &thread1, NULL, carManager, (void*)& newCar2);
+  }  
+
+  while(1);
 
  /* printf("Loading int demo...\n");
-
-  printf("Loading int demo...\n");
-
 
   list list;
   struct _car carSize;  
@@ -51,13 +67,12 @@ int main(int argc, char *argv[])
   char endPoint = (carSize.finalPosition);
 
   printf (" End Point: %c\n", (endPoint) );
-
 */
 }
  
 
 
-
+/*
 void list_with_strings()
 {
   int numNames = 5;
@@ -84,4 +99,4 @@ void list_with_strings()
 void free_string(void *data)
 {
   free(*(char **)data);
-}
+}*/

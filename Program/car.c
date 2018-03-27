@@ -29,23 +29,28 @@ char pInitPos, char pEndPos, int pAmountTrips, float pStopTime, float pAvgSpeed,
 
 void* carManager(void *pArg)
 {
-
-    /*while (pArg.amountTrips > 0)
-    {
-        for()
-        {
-            pthread_mutex_lock(&threadsMutex);
-            pArg
-
-        
-        
-        pthread_mutex_unlock(&threadsMutex);
-
-        }
-        
-        usleep(10000);
-    }*/
+    node_t *head = NULL;
+    int ret;
     
+    struct _car threadedCar =  *(struct _car*)& pArg;
+    
+    enqueue(&head, 1);
+    enqueue(&head, 2);
+    enqueue(&head, 3);
+    enqueue(&head, 4);
+    enqueue(&head, 5);
 
+    /*while ((ret=dequeue(&head)) > 0) {
+        printf("Car moving %d\n", ret);
+    }*/
+    //while (pArg.amountTrips > 0)
+    while ((ret=dequeue(&head)) > 0) 
+    {
+        threadedCar.priority = ret;
+        printf("Car moving %d\n", threadedCar.priority);                                            
+        usleep(100000);
+    }
+
+    printf("Car stopped\n");                                                
 
 }

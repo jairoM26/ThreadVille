@@ -1,10 +1,4 @@
-#include <stdio.h>
-#include <stdlib.h>
-
-typedef struct node {
-    int val;
-    struct node *next;
-} node_t;
+#include "queue.h"
 
 void enqueue(node_t **head, int val) {
     node_t *new_node = malloc(sizeof(node_t));
