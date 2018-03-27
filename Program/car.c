@@ -29,7 +29,22 @@ char pInitPos, char pEndPos, int pAmountTrips, float pStopTime, float pAvgSpeed,
 
 void* carManager(void *pArg)
 {
+
+    /*while (pArg.amountTrips > 0)
+    {
+        for()
+        {
+            pthread_mutex_lock(&threadsMutex);
+            pArg
+
+        
+        
+        pthread_mutex_unlock(&threadsMutex);
+
+        }
+        
+        usleep(10000);
+    }*/
     
-    while (1)
 
 }
