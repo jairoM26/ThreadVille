@@ -1,6 +1,7 @@
 #include "car.h"
 
 int _globalCarID=0;
+
 /*
 * Creates a _car data Type and assign its attributes
     * pColor = car color
@@ -33,6 +34,7 @@ char pInitPos, char pEndPos, int pAmountTrips, float pStopTime, float pAvgSpeed,
 
 void* carManager(void *pArg)
 {
+
     node_t *head = NULL;
     int ret;
     
@@ -50,6 +52,9 @@ void* carManager(void *pArg)
     //while (pArg.amountTrips > 0)
     while ((ret=dequeue(&head)) > 0) 
     {
+        
+
+
         threadedCar.priority = ret;
                                            
         usleep(1000000);
