@@ -1,5 +1,6 @@
 #include "car.h"
 
+int _globalCarID=0;
 /*
 * Creates a _car data Type and assign its attributes
     * pColor = car color
@@ -11,11 +12,14 @@
     * pStopTime = quantity of time to wait before starts a new trip
     * pAvgSpeed = Speed of the car
 */
+
 void createCar(int pColor, char* pModel, int pPriority, 
 char pInitPos, char pEndPos, int pAmountTrips, float pStopTime, float pAvgSpeed,list* pCarList)
-{
-    struct _car newCar;     /* Declare newCar of type _car */    
+{    
 
+    struct _car newCar;     /* Declare newCar of type _car */    
+    newCar.id = _globalCarID;
+    _globalCarID = _globalCarID+1;
     newCar.model = pModel;
     newCar.color = pColor;    
     newCar.priority = pPriority;
@@ -32,8 +36,8 @@ void* carManager(void *pArg)
     node_t *head = NULL;
     int ret;
     
-    struct _car threadedCar =  *(struct _car*)& pArg;
-    
+    struct _car threadedCar =  *(struct _car*) pArg;
+    printf("Car moving: %i\n", threadedCar.id); 
     enqueue(&head, 1);
     enqueue(&head, 2);
     enqueue(&head, 3);
@@ -47,10 +51,10 @@ void* carManager(void *pArg)
     while ((ret=dequeue(&head)) > 0) 
     {
         threadedCar.priority = ret;
-        printf("Car moving %d\n", threadedCar.priority);                                            
-        usleep(100000);
+                                           
+        usleep(1000000);
     }
 
     printf("Car stopped\n");                                                
-
+    
 }

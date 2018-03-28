@@ -13,7 +13,8 @@
 //void list_with_strings();
  
 //void free_string(void *data);
- 
+ #define NUM_THREADS 3
+
 int main(int argc, char *argv[])
 {
 
@@ -26,32 +27,45 @@ int main(int argc, char *argv[])
 
   
   createCar(3, "lamborgini",0,'A','B',3,1.5,50.5,&list);
+  createCar(3, "lamborgini",0,'A','B',3,1.5,50.5,&list);
+  createCar(3, "lamborgini",0,'A','B',3,1.5,50.5,&list);
   
   list_head(&list,&newCar,NULL);
 
-  char endPoint = (newCar.finalPosition);
+  int endPoint = (newCar.id);
 
-  printf (" End Point: %c\n", (endPoint) );
+  printf (" End Point: %i\n", (endPoint) );
 
-
+  pthread_t thread [NUM_THREADS];
 
   //pthread_create( &thread1, NULL, carManager, (void*)& newCar);
-
-  for (int i = 0; i<3;i++)
+  int i;
+  int j;
+  for (i = 0; i<3;i++)
   {
-    pthread_t thread1;
+    
     struct _car newCar2;
 
     createCar(3, "lamborgini",0,'A','B',3,1.5,50.5,&list);
   
-    list_head(&list,&newCar2,NULL);
+    list_tail(&list,&newCar2);    
 
-    char endPoint = (newCar2.finalPosition);
+    int carID = (newCar2.id);
 
-    pthread_create( &thread1, NULL, carManager, (void*)& newCar2);
+    printf (" Car ID: %i\n", (carID) );
+
+    pthread_create( &thread[i], NULL, carManager, (void*)& newCar2);
+  }
+
+  /* block until all threads complete */
+  
+  for (j = 0; j < NUM_THREADS; ++j) {
+    pthread_join(thread[j], NULL);
   }  
 
   while(1);
+
+  return 0;
 
  /* printf("Loading int demo...\n");
 
