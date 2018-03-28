@@ -3,15 +3,19 @@
 
 #include <stdio.h>
 #include <string.h>
-/* TO USE PTHREAD LIBRARY*/
 #include <pthread.h>
-#include <stdio.h>
+/* TO USE PTHREAD LIBRARY*/
+
 /*************************/
 #include "list.h"
+#include "queue.h"
+
+extern int _globalCarID;
 
 
 struct _car
 {
+    int id;                  // carID
     int priority;           // bridge access priority
     char initialPosition;   // cars always starts at Y
     char finalPosition;     // cars always finishes at Z
@@ -24,6 +28,7 @@ struct _car
     char* model;            // car model in String
     int size;               // car size, normal cars = 1
 };
+
 
 /**
  * 

@@ -1,5 +1,7 @@
 #include "car.h"
 
+int _globalCarID=0;
+
 /*
 * Creates a _car data Type and assign its attributes
     * pColor = car color
@@ -11,11 +13,14 @@
     * pStopTime = quantity of time to wait before starts a new trip
     * pAvgSpeed = Speed of the car
 */
+
 void createCar(int pColor, char* pModel, int pPriority, 
 char pInitPos, char pEndPos, int pAmountTrips, float pStopTime, float pAvgSpeed,list* pCarList)
-{
-    struct _car newCar;     /* Declare newCar of type _car */    
+{    
 
+    struct _car newCar;     /* Declare newCar of type _car */    
+    newCar.id = _globalCarID;
+    _globalCarID = _globalCarID+1;
     newCar.model = pModel;
     newCar.color = pColor;    
     newCar.priority = pPriority;
@@ -30,22 +35,31 @@ char pInitPos, char pEndPos, int pAmountTrips, float pStopTime, float pAvgSpeed,
 void* carManager(void *pArg)
 {
 
-    /*while (pArg.amountTrips > 0)
-    {
-        for()
-        {
-            pthread_mutex_lock(&threadsMutex);
-            pArg
-
-        
-        
-        pthread_mutex_unlock(&threadsMutex);
-
-        }
-        
-        usleep(10000);
-    }*/
+    node_t *head = NULL;
+    int ret;
     
+    struct _car threadedCar =  *(struct _car*) pArg;
+    printf("Car moving: %i\n", threadedCar.id); 
+    enqueue(&head, 1);
+    enqueue(&head, 2);
+    enqueue(&head, 3);
+    enqueue(&head, 4);
+    enqueue(&head, 5);
+
+    /*while ((ret=dequeue(&head)) > 0) {
+        printf("Car moving %d\n", ret);
+    }*/
+    //while (pArg.amountTrips > 0)
+    while ((ret=dequeue(&head)) > 0) 
+    {
+        
 
 
+        threadedCar.priority = ret;
+                                           
+        usleep(1000000);
+    }
+
+    printf("Car stopped\n");                                                
+    
 }

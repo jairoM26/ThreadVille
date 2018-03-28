@@ -1,63 +1,73 @@
-#include <stdio.h>
-#include <string.h>
-#include <stdlib.h>
- 
-#include "car.h"
 
-#include "queue.c"
+#include <string.h>
  
-void list_with_ints();
-void list_with_strings();
+#include <pthread.h>
+#include <stdio.h>
+#include <stdlib.h>
+#include <unistd.h>
+
+#include "car.h"
+//#include "queue.c"
  
-void free_string(void *data);
+//void list_with_ints();
+//void list_with_strings();
  
+//void free_string(void *data);
+ #define NUM_THREADS 4
+
 int main(int argc, char *argv[])
 {
-
-  node_t *head = NULL;
-    int ret;
-
-    enqueue(&head, 11);
-    enqueue(&head, 22);
-    enqueue(&head, 33);
-    enqueue(&head, 44);
-
-    print_list(head);
-    
-    while ((ret=dequeue(&head)) > 0) {
-        printf("dequeued %d\n", ret);
-    }
-    printf("done. head=%p\n", head);
-
-    return 0;
-
-
-
-
- /* printf("Loading int demo...\n");
-
-  printf("Loading int demo...\n");
-
-
   list list;
-  struct _car carSize;  
-  list_new(&list, sizeof(carSize), NULL);        
+  struct _car newCar;  
+  list_new(&list, sizeof(newCar), NULL);        
 
   
   createCar(3, "lamborgini",0,'A','B',3,1.5,50.5,&list);
+  createCar(3, "lamborgini",0,'A','B',3,1.5,50.5,&list);
+  createCar(3, "lamborgini",0,'A','B',3,1.5,50.5,&list);
   
-  list_head(&list,&carSize,NULL);
+  list_head(&list,&newCar,NULL);
 
-  char endPoint = (carSize.finalPosition);
+  int endPoint = (newCar.id);
 
-  printf (" End Point: %c\n", (endPoint) );
+  printf (" End Point: %i\n", (endPoint) );
 
-*/
-}
+  pthread_t thread [NUM_THREADS];
+
+  int i;
+  int j;
+  for (i = 0; i<4;i++)
+  {
+    
+    struct _car newCar2;
+
+    createCar(3, "lamborgini",0,'A','B',3,1.5,50.5,&list);
+  
+    list_tail(&list,&newCar2);    
+
+    int carID = (newCar2.id);
+
+    printf (" Car ID: %i\n", (carID) );
+
+    pthread_create( &thread[i], NULL, carManager, (void*)& newCar2);
+    usleep(1000);
+  }
+
+  /* block until all threads complete */
+  
+  /*for (j = 0; j < NUM_THREADS; ++j) {
+    pthread_join(thread[j], NULL);
+  }  */
+
+  while(1);
+
+  return 0;
+
+
  
 
 
-
+/*
 void list_with_strings()
 {
   int numNames = 5;
@@ -84,4 +94,4 @@ void list_with_strings()
 void free_string(void *data)
 {
   free(*(char **)data);
-}
+}*/
