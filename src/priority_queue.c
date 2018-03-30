@@ -22,13 +22,13 @@
 typedef struct {
     int priority; //priority of the node
     _car data;    //data to be stored 
-} node_t;
+} pq_node_t;
 
 /**
  * struct that simulates a heap of queue
  */
 typedef struct {
-    node_t *nodes;  //space for nodes
+    pq_node_t *nodes;  //space for nodes
     int len;        //size of the queue
     int size;       //
 } heap_t;
@@ -45,7 +45,7 @@ typedef struct {
 void push (heap_t *h, int priority, _car data) {
     if (h->len + 1 >= h->size) {
         h->size = h->size ? h->size * 2 : 4;
-        h->nodes = (node_t *)realloc(h->nodes, h->size * sizeof (node_t));
+        h->nodes = (pq_node_t *)realloc(h->nodes, h->size * sizeof (pq_node_t));
     }
     int i = h->len + 1;
     int j = i / 2;
@@ -99,7 +99,7 @@ _car pop (heap_t *h) {
     return data;
 }
  
-/**
+/** example of how to use it 
 int main () {
     heap_t *h = (heap_t *)calloc(1, sizeof (heap_t));
     _car newCar;

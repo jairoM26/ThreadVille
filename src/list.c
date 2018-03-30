@@ -33,8 +33,8 @@ list_destroy(list *list) {
 
 void
 list_prepend(list *list, void *element) {
-  listNode *node = malloc(sizeof(listNode));
-  node->data     = malloc(list->elementSize);
+  listNode *node = calloc(1,sizeof(listNode));
+  node->data     = calloc(1,list->elementSize);
   memcpy(node->data, element, list->elementSize);
 
   node->next = list->head;
@@ -50,8 +50,8 @@ list_prepend(list *list, void *element) {
 
 void
 list_append(list *list, void *element) {
-  listNode *node = malloc(sizeof(listNode));
-  node->data     = malloc(list->elementSize);
+  listNode *node = calloc(1,sizeof(listNode));
+  node->data     = calloc(1,list->elementSize);
   node->next     = NULL;
 
   memcpy(node->data, element, list->elementSize);

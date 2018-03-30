@@ -27,6 +27,7 @@
  * 
  * @param pScheduler parameter where the value of what scheduler is gonna to be used
  * @param pBridgeSize the amount of car that can be on a bridge at the same time
+ * @param pAvgSpeed the avarage speed of the cars to be readed
  */
 void readConfigFile(int *pScheduler, int *pBridgeSize, int *pAvgSpeed){
     FILE * fp;    
@@ -49,11 +50,14 @@ void readConfigFile(int *pScheduler, int *pBridgeSize, int *pAvgSpeed){
             else{
                 sscanf(line, "%s = %s", key, value);
                 if(strcmp(key, "SCHEDULER") == 0){  //Read the SCHEDULER value
-                    sscanf(value, "%f", &(*pScheduler));
+                    sscanf(value, "%d", &(*pScheduler));
+                }
                 if(strcmp(key, "BRIDGE_SIZE") == 0){  //Read the brdige size value
-                    sscanf(value, "%f", &(*pBridgeSize));
-                if(strcmp(key, "AVARAGE_SPEED") == 0){  //Read the brdige size value
-                    sscanf(value, "%f", &(*pBridgeSize));
+                    sscanf(value, "%d", &(*pBridgeSize));
+                }
+                if(strcmp(key, "AVARAGE_SPEED") == 0){  //Read the avarage speed value
+                    sscanf(value, "%d", &(*pAvgSpeed));
+                }
             }
         }
         fclose(fp);    

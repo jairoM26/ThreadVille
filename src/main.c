@@ -13,73 +13,90 @@
 #include <pthread.h>
 #include <stdio.h>
 #include "priority_queue.c"
-#define NUM_THREADS 5
+#include "readConfigFile.c"
+#include <pthread.h>
+#include <semaphore.h>
+#include <unistd.h>
+
+sem_t mutex;
+
 /**
-void *runner(void *param);
+ * @brief structure for the bridge list
+ * @details struct that contains a list of cars (5)
+ */
+typedef struct {
+    _car *carList;
+} bridgeList;
 
-int main(int argc, char *argv[])
-{
-    int i, policy;
-    pthread_t tid[NUM_THREADS];
-    pthread_attr_t attr;
 
-    pthread_attr_init(&attr);
+/**
+ * 
+ * @brief Structure of a bridge
+ * @details Struct the simulate the behavior of a bridge
+ * 
+ */
+typedef struct { 
+    heap_t *leftQueue;   //priority queue at the left of the bridge
+    heap_t *rightQueue;  //priority queue at the right of the bridge
+    bridgeList list; //queue of the bridge (is a priority queue of all elements with priority of 1)
+    int size;            //max size of the bridge (max space for cars = 5 *Setting on the config.conf file)
+    int car_in;          //contain the count of how many cars are in the bridge
+} bridge;
 
-    if(pthread_attr_getschedpolicy(&attr, &policy) != 0)
-        fprintf(stderr, "Unable to get policy.\n");
-    else{
-        if(policy == SCHED_OTHER)
-            printf("SCHED_OTHER\n");
-        else if(policy == SCHED_RR)
-            printf("SCHED_RR\n");
-        else if(policy == SCHED_FIFO)
-            printf("SCHED_FIFO\n");
+/**
+ * @brief Init the bridge structure
+ * @details where the bridge its initialize its queues, size
+ * 
+ * @param pBridge bridge to be intialized
+ * @param pSize max size of the bridge
+ */
+void initBridge(bridge *pBridge, int pSize){
+    pBridge->rightQueue = (heap_t *)calloc(1, sizeof (heap_t));
+    pBridge->leftQueue = (heap_t *)calloc(1, sizeof (heap_t));    
+    pBridge->list.carList = (_car *)calloc(pSize, sizeof (_car));
+    pBridge->size = pSize;
+    pBridge->car_in = 0;
+}
+
+
+void* create_cars(void *pQueue){
+
+    heap_t myQueue =  *(heap_t *) pQueue;
+    _car newCar;
+    while(1){
+        printf("Thread size %d\n", myQueue.len);
+        usleep(1000000);
     }
-
-    if(pthread_attr_setschedpolicy(&attr, SCHED_FIFO) != 0)
-        fprintf(stderr, "Unable to set policy.\n");
-    // create the threads 
-    for(i = 0; i < NUM_THREADS; i++)
-        pthread_create(&tid[i], &attr, runner, NULL);
-    //now join on each thread 
-    for(i = 0; i < NUM_THREADS; i++)
-        pthread_join(tid[i], NULL);
-
-    if(pthread_attr_getschedpolicy(&attr, &policy) != 0)
-        fprintf(stderr, "Unable to get policy.\n");
-    else{
-        if(policy == SCHED_OTHER)
-            printf("SCHED_OTHER\n");
-        else if(policy == SCHED_RR)
-            printf("SCHED_RR\n");
-        else if(policy == SCHED_FIFO)
-            printf("SCHED_FIFO\n");
-    }
-}*/
-
-// Each thread will begin control in this function 
-/*void *runner(void *param)
-{
-     do some work... 
-
-    pthread_exit(0);
-}*/
+}
 
 int main () {
-    heap_t *h = (heap_t *)calloc(1, sizeof (heap_t));
-    _car newCar;
-    createCar(&newCar, 3, "ferrari",0,'A','B',3,1.5,50.5);
-    push(h, 3, newCar);
-    createCar(&newCar, 3, "hyunday",0,'A','B',3,1.5,50.5);
-    push(h, 1, newCar);
-    createCar(&newCar, 3, "toyota",0,'A','B',3,1.5,50.5);
-    push(h, 4, newCar);
-    createCar(&newCar, 3, "honda",0,'A','B',3,1.5,50.5);
-    push(h, 3, newCar);
-    createCar(&newCar, 3, "Izuzu",0,'A','B',3,1.5,50.5);
-    push(h, 2, newCar);
-    for (int i = (*h).len; i >0 ; i--) {
-        printf("%s\n", pop(h).model);
+    int BRIDGE_SIZE = 0, SCHEDULER = 0, AVARAGE_SPEED = 0;
+    readConfigFile(&SCHEDULER, &BRIDGE_SIZE, &AVARAGE_SPEED); //reading the config file
+    printf( "bridgeSize: %d  scheduler: %d  avgSpeed: %d\n", BRIDGE_SIZE, SCHEDULER, AVARAGE_SPEED);
+
+
+    pthread_t thread [1];
+
+    bridge myBridge;
+
+    initBridge(&myBridge, BRIDGE_SIZE);  
+    printf("size %d\n", myBridge.rightQueue->len);
+
+    int valid[1];
+    valid[0] = pthread_create(&thread[0], NULL, create_cars, (void *)(myBridge.rightQueue)); 
+    
+    //xorT = pthread_create(&threadXOR, NULL, XOR, (void *)2);    
+    
+    if (valid[0]){
+      printf("ERROR; return code from pthread_create() is %d\n", valid[0]);      
+      exit(-1);
     }
+    //if(xorT){
+      //  printf("ERROR; return code from pthread_create() is %d\n", xorT);      
+        //exit(-1);
+    //}
+    pthread_exit(NULL);
+    
+    
     return 0;
 }
