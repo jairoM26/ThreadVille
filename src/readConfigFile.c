@@ -29,7 +29,7 @@
  * @param pBridgeSize the amount of car that can be on a bridge at the same time
  * @param pAvgSpeed the avarage speed of the cars to be readed
  */
-void readConfigFile(int *pScheduler, int *pBridgeSize, int *pAvgSpeed){
+void readConfigFile(int *pScheduler, int *pBridgeSize, int *pAvgSpeed, int * pDebugger){
     FILE * fp;    
 
     fp = fopen(CONFIG_FILE_NAME, "r");
@@ -57,6 +57,9 @@ void readConfigFile(int *pScheduler, int *pBridgeSize, int *pAvgSpeed){
                 }
                 if(strcmp(key, "AVARAGE_SPEED") == 0){  //Read the avarage speed value
                     sscanf(value, "%d", &(*pAvgSpeed));
+                }
+                if(strcmp(key, "DEBBUGER") == 0){  //Read the avarage speed value
+                    sscanf(value, "%d", &(*pDebugger));
                 }
             }
         }

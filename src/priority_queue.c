@@ -31,6 +31,7 @@ typedef struct {
     pq_node_t *nodes;  //space for nodes
     int len;        //size of the queue
     int size;       //
+    char * type;
 } heap_t;
 
 /**

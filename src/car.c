@@ -33,7 +33,7 @@ typedef struct
  *@param pAvgSpeed = Speed of the car
 */
 void createCar(_car *pCar, int pColor, char* pModel, int pPriority,  char pInitPos, 
-    char pEndPos, int pAmountTrips, float pStopTime, float pAvgSpeed){    
+    char pEndPos, int pAmountTrips, float pStopTime, int pAvgSpeed){    
 
     (*pCar).model = pModel;
     (*pCar).color = pColor;    
