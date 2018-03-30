@@ -46,10 +46,6 @@ void* carManager(void *pArg)
     enqueue(&head, 4);
     enqueue(&head, 5);
 
-    /*while ((ret=dequeue(&head)) > 0) {
-        printf("Car moving %d\n", ret);
-    }*/
-    //while (pArg.amountTrips > 0)
     while ((ret=dequeue(&head)) > 0) 
     {
         
@@ -60,6 +56,6 @@ void* carManager(void *pArg)
         usleep(1000000);
     }
 
-    printf("Car stopped\n");                                                
+    printf("Car stopped\n");                                             
     
 }

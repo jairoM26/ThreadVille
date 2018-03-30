@@ -1,8 +1,8 @@
 CC = gcc
 CFLAGS = -pthread -Wall 
-DEPS = list.h car.h common.h queue.h
-OBJ = main.o list.o car.o queue.o
+DEPS = list.h car.h queue.h common.h linkedGraph.c priority_queue.c
 
+OBJ = main.o list.o queue.c car.o 
 %.o: %.c $(DEPS)
 	$(CC) $(CFLAGS) -c -o $@ $<
 

@@ -13,7 +13,7 @@
 extern int _globalCarID;
 
 
-struct _car
+typedef struct _car
 {
     int id;                  // carID
     int priority;           // bridge access priority
@@ -27,7 +27,7 @@ struct _car
     int color;              // car color in RGB
     char* model;            // car model in String
     int size;               // car size, normal cars = 1
-};
+}_car;
 
 
 /**
