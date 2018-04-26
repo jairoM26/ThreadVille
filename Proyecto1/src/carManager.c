@@ -2,7 +2,7 @@
 
 static int type [9] = {1,3,3,3,3,1,2,2,3};
 static char *models[] = {"Toyota","Izuzu","Ferrari", "Lamborgini", "Susuki", "Ford", "Mercedes", "Gio", "Mitsubishi"};
-static char * colors[] = {"Red", "Yellow", "Blue"};
+static char * colors[] = {"Green", "Red", "Blue"};
 static int tmpTime = 2500000;
 
 /**

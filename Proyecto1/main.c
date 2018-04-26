@@ -60,6 +60,7 @@ int main(){
       if(TRAFFIC_CONTROL_B1 == 0)valid[6] = mythread_create(&thread[6], attr, semaphoreAlg, (void *)(bridge1));
       else if(TRAFFIC_CONTROL_B1 == 1)valid[6] = mythread_create(&thread[6], attr, officer, (void *)(bridge1));
       else if(TRAFFIC_CONTROL_B1 == 2)valid[6] = mythread_create(&thread[6], attr, jungleLaw, (void *)(bridge1));
+      valid[7] = mythread_create(&thread[7], attr, bridgeChar, (void *)(bridge1));
       mythread_join();
     }
     else{
@@ -81,7 +82,7 @@ int main(){
       if(TRAFFIC_CONTROL_B1 == 0)valid[6] = pthread_create(&thread[6], NULL, semaphoreAlg, (void *)(bridge1));
       else if(TRAFFIC_CONTROL_B1 == 1)valid[6] = pthread_create(&thread[6], NULL, officer, (void *)(bridge1));
       else if(TRAFFIC_CONTROL_B1 == 2)valid[6] = pthread_create(&thread[6], NULL, jungleLaw, (void *)(bridge1));
-
+      valid[7] = pthread_create(&thread[7], NULL, bridgeChar, (void *)(bridge1));
       /*if(TRAFFIC_CONTROL_B2 == 0)valid[7] = pthread_create(&thread[7], NULL, semaphoreAlg, (void *)(bridge2));
       else if(TRAFFIC_CONTROL_B2 == 1)valid[7] = pthread_create(&thread[7], NULL, officer, (void *)(bridge2));
       else if(TRAFFIC_CONTROL_B2 == 2)valid[7] = pthread_create(&thread[7], NULL, jungleLaw, (void *)(bridge2));

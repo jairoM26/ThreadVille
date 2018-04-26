@@ -25,6 +25,7 @@ typedef struct {
     heap_t *node3;  //queue for node 3 of the bridge
     heap_t *node4;  //queue for node 4 of the bridge
     heap_t *node5;  //queue for node 5 of the bridge
+    char* stringInBridge; //save the cars in bridge
 } bridgeList;
 
 
@@ -35,10 +36,12 @@ typedef struct {
 typedef struct { 
     heap_t *inLeftQueue;   //priority queue at the left of the bridge (input)
     heap_t *inrightQueue;  //priority queue at the right of the bridge (input)
-    bridgeList list; //queue of the bridge (is a priority queue of all elements with priority of 1)
-    int size;            //max size of the bridge (max space for cars = 5 *Setting on the config.conf file)
-    int car_in;          //contain the count of how many cars are in the bridge
-    int id;
+    bridgeList list;       //queue of the bridge (is a priority queue of all elements with priority of 1)
+    int size;              //max size of the bridge (max space for cars = 5 *Setting on the config.conf file)
+    int car_in;            //contain the count of how many cars are in the bridge
+    int id;                //contain the id of the bridge
+    int side;              //contain if the bridge its excecuting left or right semaphore, or official
+    char* bridgeString;
 } bridge;
 
 
@@ -87,6 +90,16 @@ void *jungleLaw(void* pBridge);
 /**
  * @brief 
  * 
+ * @param pCar 
+ * @return void* 
  */
 void *carMovement(void* pCar);
+
+/**
+ * @brief 
+ * 
+ * @param pBridge 
+ * @return void* 
+ */
+void *bridgeChar(void* pBridge);
 #endif

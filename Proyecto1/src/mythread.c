@@ -116,13 +116,6 @@ int lottery(){
 int roundRobin_Algorithm(){
 
 	int i;
-	/*for(i=0;i<numThreads;i++){
-		if(threadList[i].SRR_tail==0){
-			threadList[i].SRR_A_Prio+=SRR_A_Priorement;
-		}else{
-			threadList[i].SRR_B_Prio+=SRR_B_Priorement;
-		}
-	}*/
 
 	//Fin out the next one in the running tail
 	for(i=0;i<numThreads;i++){
@@ -136,13 +129,6 @@ int roundRobin_Algorithm(){
 			}
 		}
 	}
-
-	/*if(threadList[RR_CurrentProcess].thread_SchedulerAlgorithm == 1)
-		return lottery();
-	else if (threadList[RR_CurrentProcess].thread_SchedulerAlgorithm == 1)
-		return SRT();		
-	else
-	{*/
 		printf("selected by Round Robin Process: %d\n",RR_CurrentProcess);
 		return RR_CurrentProcess;
 //	}
@@ -175,7 +161,7 @@ int mythread_create(myThread* pmythread, mythread_attr_t* pAttri, void *(*func)(
 	threadList[numThreads].PRIO=pAttri->PRIO;
 	threadList[numThreads].thread_SchedulerAlgorithm = pAttri->SCHED_ALG;
 	threadList[numThreads].context.uc_link = 0;
-	threadList[numThreads].stack = malloc( Thread_STACK );
+	threadList[numThreads].stack = calloc(1, Thread_STACK );
 	threadList[numThreads].context.uc_stack.ss_sp = threadList[numThreads].stack;
 	threadList[numThreads].context.uc_stack.ss_size = Thread_STACK;
 	threadList[numThreads].context.uc_stack.ss_flags = 0;
