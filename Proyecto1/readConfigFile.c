@@ -39,7 +39,7 @@ typedef struct conf_info {
     int sem_time_R;
     int ambulance_percentage;
     int radioactive_percentage;
-
+    int myThread;
 } info;
 
 /**
@@ -69,45 +69,48 @@ void readConfigFile(info *conf_Info){
                 if(strcmp(key, "SCHEDULER") == 0){  //Read the SCHEDULER value
                     sscanf(value, "%d", &(conf_Info->scheduler));
                 }
-                if(strcmp(key, "BRIDGE_SIZE") == 0){  //Read the brdige size value
+                else if(strcmp(key, "BRIDGE_SIZE") == 0){  //Read the brdige size value
                     sscanf(value, "%d", &(conf_Info->bridgeSize));
                 }
-                if(strcmp(key, "AVARAGE_SPEED") == 0){  //Read the avarage speed value
+                else if(strcmp(key, "AVARAGE_SPEED") == 0){  //Read the avarage speed value
                     sscanf(value, "%d", &(conf_Info->avgSpeed));
                 }
-                if(strcmp(key, "DEBBUGER") == 0){  //Read the avarage speed value
+                else if(strcmp(key, "DEBBUGER") == 0){  //Read the avarage speed value
                     sscanf(value, "%d", &(conf_Info->debbuger));
                 }
-                if(strcmp(key, "DIST") == 0){  //Read the avarage speed value
+                else if(strcmp(key, "DIST") == 0){  //Read the avarage speed value
                     sscanf(value, "%lf", &(conf_Info->distribution));
                 }
-                if(strcmp(key, "TRAFFIC_CONTROL_B1") == 0){  //Read the avarage speed value
+                else if(strcmp(key, "TRAFFIC_CONTROL_B1") == 0){  //Read the avarage speed value
                     sscanf(value, "%d", &(conf_Info->traffic_control_B1));
                 }
-                if(strcmp(key, "TRAFFIC_CONTROL_B2") == 0){  //Read the avarage speed value
+                else if(strcmp(key, "TRAFFIC_CONTROL_B2") == 0){  //Read the avarage speed value
                     sscanf(value, "%d", &(conf_Info->traffic_control_B2));
                 }
-                if(strcmp(key, "TRAFFIC_CONTROL_B3") == 0){  //Read the avarage speed value
+                else if(strcmp(key, "TRAFFIC_CONTROL_B3") == 0){  //Read the avarage speed value
                     sscanf(value, "%d", &(conf_Info->traffic_control_B3));
                 }
-                if(strcmp(key, "SEM_TIME_L") == 0){  //Read the avarage speed value
+                else if(strcmp(key, "SEM_TIME_L") == 0){  //Read the avarage speed value
                     sscanf(value, "%d", &(conf_Info->sem_time_L));
                 }
-                if(strcmp(key, "SEM_TIME_R") == 0){  //Read the avarage speed value
+                else if(strcmp(key, "SEM_TIME_R") == 0){  //Read the avarage speed value
                     sscanf(value, "%d", &(conf_Info->sem_time_R));
                 }
-                if(strcmp(key, "RIGHT_OFFICER") == 0){  //Read the avarage speed value
+                else if(strcmp(key, "RIGHT_OFFICER") == 0){  //Read the avarage speed value
                     sscanf(value, "%d", &(conf_Info->right_officer));
                 }
-                if(strcmp(key, "LEFT_OFFICER") == 0){  //Read the avarage speed value
+                else if(strcmp(key, "LEFT_OFFICER") == 0){  //Read the avarage speed value
                     sscanf(value, "%d", &(conf_Info->leftt_officer));
                 }
-                if(strcmp(key, "A_P") == 0){  //Read the avarage speed value
+                else if(strcmp(key, "A_P") == 0){  //Read the avarage speed value
                     sscanf(value, "%d", &(conf_Info->ambulance_percentage));
                 }
-                if(strcmp(key, "R_P") == 0){  //Read the avarage speed value
+                else if(strcmp(key, "R_P") == 0){  //Read the avarage speed value
                     sscanf(value, "%d", &(conf_Info->radioactive_percentage));
-                }              
+                }
+                else if(strcmp(key, "MY_PTHREAD") == 0){  //Read the avarage speed value
+                    sscanf(value, "%d", &(conf_Info->myThread));
+                }               
             }
         }
         fclose(fp);   

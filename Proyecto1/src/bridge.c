@@ -58,7 +58,6 @@ void* semaphoreAlg(void *pBridge){
                     else;
                     semCount++;
                     usleep(1000000); //TO_DO sleep correcto del semaforo
-
                 }
                 else
                 {
@@ -132,7 +131,7 @@ void* semaphoreAlg(void *pBridge){
     //return 0;
 }
 
-void* officer(void *pBridge){
+void *officer(void *pBridge){
 	bridge* myBridge =  (bridge *) pBridge;
 	int flag =1;  //flag = 0 left officer 1 right officer
     int officerCount =0; //officer counter    
@@ -321,12 +320,14 @@ void* carMovement(void* pCar)
                     
                     if(myBridge->list.node5->len ==0 && myCar->bridgePos==0)
                     {
-                        pthread_mutex_lock(&lock);
+                        if(MY_PTHREAD) mymutex_lock(&myLock);
+                        else if (MY_PTHREAD == 0) pthread_mutex_lock(&lock);
                         myCar->bridgePos=1;
                         push(myBridge->list.node5, 0, myCar);
-
+                        
                         if (DEBUGGER) printf("a car enter from the right with id %d model %s\n",myCar->id, myCar->model);
-                        pthread_mutex_unlock(&lock);
+                        if(MY_PTHREAD) mymutex_unlock(&myLock);
+                        else if (MY_PTHREAD == 0) pthread_mutex_unlock(&lock);
 
                     }
                     
@@ -334,58 +335,65 @@ void* carMovement(void* pCar)
                     else if(myBridge->list.node4->len ==0 
                     && myCar->bridgePos ==1)
                     {
-                        pthread_mutex_lock(&lock);
+                        if(MY_PTHREAD) mymutex_lock(&myLock);
+                        else if (MY_PTHREAD == 0) pthread_mutex_lock(&lock);
                         pop(myBridge->list.node5);
                         myCar->bridgePos=2;
                         push(myBridge->list.node4, 0, myCar);
 
                         if (DEBUGGER) printf("a car moving in the bridge from node5 to node4 with id %d model %s\n",
                                             myCar->id, myCar->model);
-                        pthread_mutex_unlock(&lock);
+                        if(MY_PTHREAD) mymutex_unlock(&myLock);
+                        else if (MY_PTHREAD == 0) pthread_mutex_unlock(&lock);
                     }
 
                     else if(myBridge->list.node3->len ==0 
                     && myCar->bridgePos ==2)
                     {
-                        pthread_mutex_lock(&lock);
+                        if(MY_PTHREAD) mymutex_lock(&myLock);
+                        else if (MY_PTHREAD == 0) pthread_mutex_lock(&lock);
                         pop(myBridge->list.node4);
                         myCar->bridgePos=3;
                         push(myBridge->list.node3, 0, myCar);
 
                         if (DEBUGGER) printf("a car moving in the bridge from node4 to node3 with id %d model %s\n",
                                             myCar->id, myCar->model);
-                        pthread_mutex_unlock(&lock);
-                        
+                        if(MY_PTHREAD) mymutex_unlock(&myLock);
+                        else if (MY_PTHREAD == 0) pthread_mutex_unlock(&lock);
                     }
 
                     else if(myBridge->list.node2->len ==0 
                     && myCar->bridgePos ==3)
                     {
-                        pthread_mutex_lock(&lock);
+                        if(MY_PTHREAD) mymutex_lock(&myLock);
+                        else if (MY_PTHREAD == 0) pthread_mutex_lock(&lock);
                         pop(myBridge->list.node3);
                         myCar->bridgePos=4;
                         push(myBridge->list.node2, 0, myCar);
 
                         if (DEBUGGER) printf("a car moving in the bridge from node3 to node2 with id %d model %s\n",
                                             myCar->id, myCar->model);
-                        pthread_mutex_unlock(&lock);
+                        if(MY_PTHREAD) mymutex_unlock(&myLock);
+                        else if (MY_PTHREAD == 0) pthread_mutex_unlock(&lock);
                     }
                     else if(myBridge->list.node1->len ==0 
                     && myCar->bridgePos ==4)
                     {
-                        pthread_mutex_lock(&lock);
+                        if(MY_PTHREAD) mymutex_lock(&myLock);
+                        else if (MY_PTHREAD == 0) pthread_mutex_lock(&lock);
                         pop(myBridge->list.node2);
                         myCar->bridgePos=5;
                         push(myBridge->list.node1, 0, myCar);
 
                         if (DEBUGGER) printf("a car moving in the bridge from node2 to node1 with id %d model %s\n",
                                             myCar->id, myCar->model);
-
-                        pthread_mutex_unlock(&lock);
+                        if(MY_PTHREAD) mymutex_unlock(&myLock);
+                        else if (MY_PTHREAD == 0) pthread_mutex_unlock(&lock);
                     }
                     else if(myCar->bridgePos ==5)
                     {
-                        pthread_mutex_lock(&lock);
+                        if(MY_PTHREAD) mymutex_lock(&myLock);
+                        else if (MY_PTHREAD == 0) pthread_mutex_lock(&lock);
                         pop(myBridge->list.node1);
                         myCar->bridgePos=0;
                         
@@ -393,7 +401,8 @@ void* carMovement(void* pCar)
                         myCar->alive = 0;
                         if (DEBUGGER) printf("the car moving outside the bridge from node1 with id %d model %s\n",
                                             myCar->id, myCar->model);
-                        pthread_mutex_unlock(&lock);
+                        if(MY_PTHREAD) mymutex_unlock(&myLock);
+                        else if (MY_PTHREAD == 0) pthread_mutex_unlock(&lock);
                     }
                 }
 
@@ -401,79 +410,88 @@ void* carMovement(void* pCar)
                         //check if the bridge is empty                        
                     if(myBridge->list.node1->len ==0 && myCar->bridgePos==0)
                     {
-                        pthread_mutex_lock(&lock);
+                        if(MY_PTHREAD) mymutex_lock(&myLock);
+                        else if (MY_PTHREAD == 0) pthread_mutex_lock(&lock);
                         myCar->bridgePos=1;
                         push(myBridge->list.node1, 0, myCar);
 
                         if (DEBUGGER) printf("a car enter from the left with id %d model %s\n",myCar->id, myCar->model);
-
-                        pthread_mutex_unlock(&lock);
+                        if(MY_PTHREAD) mymutex_unlock(&myLock);
+                        else if (MY_PTHREAD == 0) pthread_mutex_unlock(&lock);
                     }
                     
                         
                     else if(myBridge->list.node2->len ==0 
                     && myCar->bridgePos ==1)
                     {
-                        pthread_mutex_lock(&lock);
+                        if(MY_PTHREAD) mymutex_lock(&myLock);
+                        else if (MY_PTHREAD == 0) pthread_mutex_lock(&lock);
                         pop(myBridge->list.node1);
                         myCar->bridgePos=2;
                         push(myBridge->list.node2, 0, myCar);
 
                         if (DEBUGGER) printf("a car moving in the bridge from node1 to node2 with id %d model %s\n"
                                             ,myCar->id, myCar->model);
-                        
-                        pthread_mutex_unlock(&lock);
+                        if(MY_PTHREAD) mymutex_unlock(&myLock);
+                        else if (MY_PTHREAD == 0) pthread_mutex_unlock(&lock);
                     }
 
                     else if(myBridge->list.node3->len ==0 
                     && myCar->bridgePos ==2)
                     {
-                        pthread_mutex_lock(&lock);
+                        if(MY_PTHREAD) mymutex_lock(&myLock);
+                        else if (MY_PTHREAD == 0) pthread_mutex_lock(&lock);
                         pop(myBridge->list.node2);
                         myCar->bridgePos=3;
                         push(myBridge->list.node3, 0, myCar);
 
                         if (DEBUGGER) printf("a car moving in the bridge from node2 to node3 with id %d model %s\n",
                                             myCar->id, myCar->model);
-
-                        pthread_mutex_unlock(&lock);
+                        if(MY_PTHREAD) mymutex_unlock(&myLock);
+                        else if (MY_PTHREAD == 0) pthread_mutex_unlock(&lock);
                     }
 
                     else if(myBridge->list.node4->len ==0 
                     && myCar->bridgePos ==3)
                     {
-                        pthread_mutex_lock(&lock);
+                        if(MY_PTHREAD) mymutex_lock(&myLock);
+                        else if (MY_PTHREAD == 0) pthread_mutex_lock(&lock);
                         pop(myBridge->list.node3);
                         myCar->bridgePos=4;
                         push(myBridge->list.node4, 0, myCar);
 
                         if (DEBUGGER) printf("a car moving in the bridge from node3 to node4 with id %d model %s\n",
                                         myCar->id, myCar->model);
-                        
-                        pthread_mutex_unlock(&lock);
+                        if(MY_PTHREAD) mymutex_unlock(&myLock);
+                        else if (MY_PTHREAD == 0) pthread_mutex_unlock(&lock);
                     }
                     else if(myBridge->list.node5->len ==0 
                     && myCar->bridgePos ==4)
                     {
-                        pthread_mutex_lock(&lock);
+                        if(MY_PTHREAD) mymutex_lock(&myLock);
+                        else if (MY_PTHREAD == 0) pthread_mutex_lock(&lock);
                         pop(myBridge->list.node4);
                         myCar->bridgePos=5;
                         push(myBridge->list.node5, 0, myCar);
 
                         if (DEBUGGER) printf("a car moving in the bridge from node4 to node5 with id %d model %s\n",
                                         myCar->id, myCar->model);
-                        pthread_mutex_unlock(&lock);
+                        
+                        if(MY_PTHREAD) mymutex_unlock(&myLock);
+                        else if (MY_PTHREAD == 0) pthread_mutex_unlock(&lock);
                     }
                     else if(myCar->bridgePos ==5)
                     {
-                        pthread_mutex_lock(&lock);
+                        if(MY_PTHREAD) mymutex_lock(&myLock);
+                        else if (MY_PTHREAD == 0) pthread_mutex_lock(&lock);
                         pop(myBridge->list.node5);
                         myCar->bridgePos=0;
                         myCar->activeRunning= 0;
                         myCar->alive = 0;
                         if (DEBUGGER) printf("the car moving outside the bridge from node5 with id %d model %s\n",
                                         myCar->id, myCar->model);
-                        pthread_mutex_unlock(&lock);
+                        if(MY_PTHREAD) mymutex_unlock(&myLock);
+                        else if (MY_PTHREAD == 0) pthread_mutex_unlock(&lock);
                     }
                 }
                 usleep(myCar->avgSpeed);

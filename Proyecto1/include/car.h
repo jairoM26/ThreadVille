@@ -3,10 +3,9 @@
 
 #include <stdio.h>
 #include <string.h>
+#include "../include/mythread.h"
 /* TO USE PTHREAD LIBRARY*/
 
-/*************************/
-#include "list.h"
 
 extern int _globalCarID;
 extern int BRIDGE_SIZE, SCHEDULER, AVARAGE_SPEED, DEBUGGER,
@@ -49,6 +48,6 @@ typedef struct
  *@param pAvgSpeed = Speed of the car
 */
 void createCar(_car *pCar, char * pColor, char* pModel, int pPriority,  
-                int pAmountTrips, float pStopTime, int pAvgSpeed, char* side, list* pCarList);
+                int pAmountTrips, float pStopTime, int pAvgSpeed, char* side);
                 
 #endif

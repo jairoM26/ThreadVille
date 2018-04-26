@@ -5,7 +5,7 @@
 int _globalCarID =0;
 
 void createCar(_car *pCar, char * pColor, char* pModel, int pPriority,  
-                int pAmountTrips, float pStopTime, int pAvgSpeed, char* side, list* pCarList){
+                int pAmountTrips, float pStopTime, int pAvgSpeed, char* side){
     (*pCar).id =_globalCarID++;   
     (*pCar).model = pModel;
     (*pCar).color = pColor;    
@@ -16,6 +16,5 @@ void createCar(_car *pCar, char * pColor, char* pModel, int pPriority,
     (*pCar).activeRunning = 0;
     (*pCar).bridgePos = 0;
     (*pCar).alive = 0;
-    (*pCar).side = side;    
-    list_append(pCarList, &pCar);    
+    (*pCar).side = side;      
 }

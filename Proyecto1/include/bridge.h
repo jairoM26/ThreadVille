@@ -12,7 +12,7 @@ int bridgeID;
 
 extern int BRIDGE_SIZE, SCHEDULER, AVARAGE_SPEED, DEBUGGER,
         RIGHT_OFFICER, LEFT_OFFICER, TRAFFIC_CONTROL_B1, TRAFFIC_CONTROL_B2, 
-        TRAFFIC_CONTROL_B3, SEM_TIME_L, SEM_TIME_R, A_P, R_P;
+        TRAFFIC_CONTROL_B3, SEM_TIME_L, SEM_TIME_R, A_P, R_P, MY_PTHREAD;
 extern double DISTRIBUTION;
 
 /**
@@ -46,6 +46,7 @@ bridge* bridge1;
 bridge* bridge2;
 bridge* bridge3;
 pthread_mutex_t lock;
+mutextType myLock;
 
 /**
  * @brief Init the bridge structure
@@ -63,7 +64,7 @@ void initBridge(bridge *pBridge, int pSize);
  * @param pBridge 
  * @return 
  */
-void* semaphoreAlg(void* pBridge);
+void *semaphoreAlg(void* pBridge);
 
 /**
  * @brief 
@@ -72,7 +73,7 @@ void* semaphoreAlg(void* pBridge);
  * @param pBridge 
  * @return 
  */
-void* officer(void* pBridge);
+void *officer(void* pBridge);
 
 /**
  * @brief 
@@ -81,11 +82,11 @@ void* officer(void* pBridge);
  * @param pBridge 
  * @return 
  */
-void* jungleLaw(void* pBridge);
+void *jungleLaw(void* pBridge);
 
 /**
  * @brief 
  * 
  */
-void* carMovement(void* pCar);
+void *carMovement(void* pCar);
 #endif

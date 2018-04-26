@@ -1,6 +1,6 @@
 CC = gcc
-CFLAGS = -pthread -Wall
-OBJ = main.o priority_queue.o car.o list.o carManager.o bridge.o
+CFLAGS = -pthread 
+OBJ = main.o priority_queue.o car.o  carManager.o bridge.o mythread.o
 
 #compile the program
 #get all the .c and .h files (dependencies) and generate the objects files
