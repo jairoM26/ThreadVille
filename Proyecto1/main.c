@@ -6,7 +6,8 @@
 #include "./include/carManager.h"
 #include "readConfigFile.c"
 
-int BRIDGE_SIZE = 0, SCHEDULER = 0, AVARAGE_SPEED = 0, DEBUGGER = 0, DISTRIBUTION = 0, RIGHT_OFFICER = 0, LEFT_OFFICER = 0, TRAFFIC_CONTROL_B1 = 0, TRAFFIC_CONTROL_B2 = 0, TRAFFIC_CONTROL_B3 = 0, SEM_TIME_L = 0, SEM_TIME_R = 0, A_P = 0, R_P = 0;
+int BRIDGE_SIZE = 0, SCHEDULER = 0, AVARAGE_SPEED = 0, DEBUGGER = 0,  RIGHT_OFFICER = 0, LEFT_OFFICER = 0, TRAFFIC_CONTROL_B1 = 0, TRAFFIC_CONTROL_B2 = 0, TRAFFIC_CONTROL_B3 = 0, SEM_TIME_L = 0, SEM_TIME_R = 0, A_P = 0, R_P = 0;
+double DISTRIBUTION = 0.0;
 extern bridge* bridge1;
 
 void initConfig(){
@@ -26,10 +27,10 @@ void initConfig(){
   SEM_TIME_R = pconf->sem_time_R;
   A_P = pconf->ambulance_percentage;
   R_P = pconf->radioactive_percentage;
-  if (DEBUGGER) printf( "bridgeSize: %d  scheduler: %d  avgSpeed: %d debbuger: %d distribution %d \n traffic_control_B1: %d traffic_control_B2: %d traffic_control_B3: %d \n right_officer: %d leftt_officer: %d sem_time_L: %d sem_time_R: %d \n ambulance percentage: %d radioactive_percentage: %d /n",BRIDGE_SIZE, SCHEDULER, AVARAGE_SPEED, DEBUGGER, DISTRIBUTION,  TRAFFIC_CONTROL_B1, TRAFFIC_CONTROL_B2, TRAFFIC_CONTROL_B3, RIGHT_OFFICER, LEFT_OFFICER, SEM_TIME_L, SEM_TIME_R, A_P, R_P);      
+  if (DEBUGGER) printf( "bridgeSize: %d  scheduler: %d  avgSpeed: %d debbuger: %d distribution %lf \n traffic_control_B1: %d traffic_control_B2: %d traffic_control_B3: %d \n right_officer: %d leftt_officer: %d sem_time_L: %d sem_time_R: %d \n ambulance percentage: %d radioactive_percentage: %d \n",BRIDGE_SIZE, SCHEDULER, AVARAGE_SPEED, DEBUGGER, DISTRIBUTION,  TRAFFIC_CONTROL_B1, TRAFFIC_CONTROL_B2, TRAFFIC_CONTROL_B3, RIGHT_OFFICER, LEFT_OFFICER, SEM_TIME_L, SEM_TIME_R, A_P, R_P);      
 }
 
-int main(){        
+int main(){       
 
     initConfig(); //get config info
 
@@ -68,11 +69,11 @@ int main(){
     //TO_DO instancias puente 3 en un hilo
 
     //if any error in creating threads
-    /*if (valid[0]){
+    if (valid[0]){
       printf("ERROR; return code from pthread_create() 0 is %d\n", valid[0]);     
       exit(-1);
     }
-    if (valid[1]){
+    /*if (valid[1]){
       printf("ERROR; return code from pthread_create() 1 is %d\n", valid[1]);     
       exit(-1);
     }

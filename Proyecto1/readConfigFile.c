@@ -29,7 +29,7 @@ typedef struct conf_info {
     int bridgeSize;
     int avgSpeed;
     int debbuger;
-    int distribution;
+    double distribution;
     int right_officer;
     int leftt_officer;
     int traffic_control_B1;
@@ -79,7 +79,7 @@ void readConfigFile(info *conf_Info){
                     sscanf(value, "%d", &(conf_Info->debbuger));
                 }
                 if(strcmp(key, "DIST") == 0){  //Read the avarage speed value
-                    sscanf(value, "%d", &(conf_Info->distribution));
+                    sscanf(value, "%lf", &(conf_Info->distribution));
                 }
                 if(strcmp(key, "TRAFFIC_CONTROL_B1") == 0){  //Read the avarage speed value
                     sscanf(value, "%d", &(conf_Info->traffic_control_B1));

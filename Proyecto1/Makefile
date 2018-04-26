@@ -1,15 +1,15 @@
 CC = gcc
-CFLAGS = -pthread -Wall 
+CFLAGS = -pthread -Wall
 OBJ = main.o priority_queue.o car.o list.o carManager.o bridge.o
 
 #compile the program
 #get all the .c and .h files (dependencies) and generate the objects files
 %.o: ./src/%.c ./include/%.h
-	$(CC) $(CFLAGS) -c -o $@ $<
+	$(CC) $(CFLAGS) -c -o $@ $< -lm
 
 #then generate executable file
 ./bin/exec: $(OBJ)	
-	gcc $(CFLAGS) -o $@ $^
+	gcc $(CFLAGS) -o $@ $^ -lm
 	rm -f *.o
 
 #for running the program
