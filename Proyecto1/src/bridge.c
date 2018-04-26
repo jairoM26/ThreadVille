@@ -86,7 +86,6 @@ void* semaphoreAlg(void *pBridge){
             else
             {
             }
-            //usleep(1000000); //TO_DO sleep correcto del semaforo
         }
         else
         {
