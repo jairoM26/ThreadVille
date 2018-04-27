@@ -35,6 +35,7 @@ typedef struct pq {
     int len;        //size of the queue
     int size;       //
     char * type;
+    char* stringQ;
     int bridge;
 } heap_t;
 
@@ -56,5 +57,12 @@ void push (heap_t *h, int priority, void* data);
  * @param pdata 
  */
 void* pop (heap_t *h);
+
+/**
+ * @brief 
+ * 
+ * @param h 
+ */
+void updatePriorityString(heap_t *h);
 
 #endif

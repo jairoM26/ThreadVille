@@ -45,6 +45,42 @@ void* pop (heap_t *h) {
         h->nodes[i] = h->nodes[k];
         i = k;
     }
-    h->nodes[i] = h->nodes[h->len + 1];    
+    h->nodes[i] = h->nodes[h->len + 1];
     return pdata;
+}
+
+void updatePriorityString(heap_t *h){
+    char* tmp = (char*)calloc(4, sizeof(char));
+    for(int i = 0; i < 4; i++)
+        tmp[i] = 'n';    
+    if(strcmp(h->type, "R")==0){
+        for(int i = 1; i <= h->len; i++){
+            if(i<=4){
+                if(h->nodes[i].priority == 1) tmp[i-1] = 'R';
+                else if(h->nodes[i].priority == 2) tmp[i-1] = 'A';
+                else if(h->nodes[i].priority == 3) tmp[i-1] = 'C';
+            }        
+        }
+    }
+    else{
+        for(int i = 1; i <= h->len; i++){
+            if(i<=4){
+                if(h->nodes[i].priority == 1) tmp[i-1] = 'r';
+                else if(h->nodes[i].priority == 2) tmp[i-1] = 'a';
+                else if(h->nodes[i].priority == 3) tmp[i-1] = 'c';
+            }        
+        }
+    }
+    char tmp2;
+    if(strcmp(h->type, "L")==0){
+        tmp2 = tmp[0];
+        tmp[0] = tmp[3];
+        tmp[3] = tmp2;
+        tmp2 = tmp[1];
+        tmp[1] = tmp[2];
+        tmp[2] = tmp2;
+    }
+    strcpy(h->stringQ, tmp);
+    free(tmp);
+    //printf("tmp %s \n",h->stringQ);
 }

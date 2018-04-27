@@ -5,6 +5,10 @@
 #include <unistd.h>
 #include <stdlib.h>
 #include <pthread.h>
+#include <string.h>
+#include <sys/statvfs.h>
+#include <sys/stat.h>
+
 #include "priority_queue.h"
 #include "car.h"
 
@@ -12,7 +16,7 @@ int bridgeID;
 
 extern int BRIDGE_SIZE, SCHEDULER, AVARAGE_SPEED, DEBUGGER,
         RIGHT_OFFICER, LEFT_OFFICER, TRAFFIC_CONTROL_B1, TRAFFIC_CONTROL_B2, 
-        TRAFFIC_CONTROL_B3, SEM_TIME_L, SEM_TIME_R, A_P, R_P, MY_PTHREAD;
+        TRAFFIC_CONTROL_B3, SEM_TIME_L, SEM_TIME_R, A_P, R_P, MY_PTHREAD,BRIDGE_TO_PRINT, HARDWARE_AVAILABLE;
 extern double DISTRIBUTION;
 
 /**

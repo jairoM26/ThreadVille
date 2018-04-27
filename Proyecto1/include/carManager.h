@@ -26,7 +26,7 @@ int genRandom();
  * @param pQueue 
  * @return void* 
  */
-void *create_cars(void *pQueue);
+void *create_cars(void *pBridge);
 
 
 #endif

@@ -22,40 +22,39 @@ int genRandom(){
  * @param pQueue 
  * @return void* 
  */
-void* create_cars(void *pQueue){    
+void* create_cars(void *pBridge){    
     pthread_t thread;  
     myThread m_thread;  
     mythread_attr_t* attr = calloc(1,sizeof(mythread_attr_t));
     attr->SCHED_ALG=SCHEDULER;// 0:SSR		1:LOT 	2:RT
     attr->PRIO=1;
 	attr->QUANTUM=1;
-    heap_t* myQueue =  (heap_t *) pQueue; 
-    _car* newCar;   
-    int i = 0;  
-    int ptime = tmpTime; 
-    while(1){        
-         
+    _car* newCar;
+    int ptime = tmpTime;
+    bridge* myBridge =  (bridge *) pBridge;
+    while(1)
+    {
+
         newCar = (_car*)calloc(1,sizeof(_car));
         int rand = genRandom();
     
-        if(i%2==0){
-            createCar(newCar, colors[type[rand] -1], models[rand], type[rand],3,1.5,AVARAGE_SPEED+rand, myQueue->type);
+        if(rand%2==0){
+            createCar(newCar, colors[type[rand] -1], models[rand], type[rand],3,1.5,AVARAGE_SPEED+80*rand, "R");
+            newCar->bridge = myBridge->id;        
+            push(myBridge->inrightQueue, type[rand], newCar);
+            if (DEBUGGER) printf("Bridge id: %d Side bridge R size %d, priority %d, modelo %s, ID %d\n", myBridge->id ,myBridge->inrightQueue->len, type[rand], models[rand],newCar->id);
         }
         else{
-            createCar(newCar, colors[type[rand] -1], models[rand], type[rand],3,1.5,AVARAGE_SPEED-rand, myQueue->type);
+            createCar(newCar, colors[type[rand] -1], models[rand], type[rand],3,1.5,AVARAGE_SPEED-80*rand, "L");
+            newCar->bridge = myBridge->id;        
+            push(myBridge->inLeftQueue, type[rand], newCar);
+            if (DEBUGGER) printf("Bridge id: %d Side bridge L size %d, priority %d, modelo %s, ID %d\n", myBridge->id ,myBridge->inrightQueue->len, type[rand], models[rand],newCar->id);
         }
-
-       // printf("Out Car\n");
-        newCar->bridge = myQueue->bridge;        
-        push(myQueue, type[rand], newCar);
         if(MY_PTHREAD){ 
-            mythread_create(&m_thread, attr, carMovement, (void*)(newCar));
-            mythread_join();
+            mythread_create(&m_thread, attr, carMovement, (void*)(newCar));            
         }
-        else if (MY_PTHREAD == 0) pthread_create(&thread, NULL, carMovement, (void*)(newCar));
-        if (DEBUGGER) printf("Side bridge %s size %d, priority %d, modelo %s, ID %d\n", myQueue->type ,myQueue->len, type[rand], models[rand],newCar->id);
+        else if (MY_PTHREAD == 0) pthread_create(&thread, NULL, carMovement, (void*)(newCar));        
         usleep(ptime); //TO_DO increment the time of creating cars
-        i++;
         ptime = ptime*pow(2.7182818, -DISTRIBUTION);
     }
 }

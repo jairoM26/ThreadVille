@@ -40,6 +40,8 @@ typedef struct conf_info {
     int ambulance_percentage;
     int radioactive_percentage;
     int myThread;
+    int bridge_to_print;
+    int hardware_available;
 } info;
 
 /**
@@ -110,7 +112,13 @@ void readConfigFile(info *conf_Info){
                 }
                 else if(strcmp(key, "MY_PTHREAD") == 0){  //Read the avarage speed value
                     sscanf(value, "%d", &(conf_Info->myThread));
-                }               
+                }
+                else if(strcmp(key, "BRIDGE_TO_PRINT") == 0){  //Read the avarage speed value
+                    sscanf(value, "%d", &(conf_Info->bridge_to_print));
+                } 
+                else if(strcmp(key, "HARDWARE_AVAILABLE") == 0){  //Read the avarage speed value
+                    sscanf(value, "%d", &(conf_Info->hardware_available));
+                }                
             }
         }
         fclose(fp);   

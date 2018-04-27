@@ -131,8 +131,6 @@ int roundRobin_Algorithm(){
 	}
 		printf("selected by Round Robin Process: %d\n",RR_CurrentProcess);
 		return RR_CurrentProcess;
-//	}
-	//return (currentThread + 1) % numThreads;
 }
 
 
@@ -161,7 +159,7 @@ int mythread_create(myThread* pmythread, mythread_attr_t* pAttri, void *(*func)(
 	threadList[numThreads].PRIO=pAttri->PRIO;
 	threadList[numThreads].thread_SchedulerAlgorithm = pAttri->SCHED_ALG;
 	threadList[numThreads].context.uc_link = 0;
-	threadList[numThreads].stack = calloc(1, Thread_STACK );
+	threadList[numThreads].stack = malloc( Thread_STACK );
 	threadList[numThreads].context.uc_stack.ss_sp = threadList[numThreads].stack;
 	threadList[numThreads].context.uc_stack.ss_size = Thread_STACK;
 	threadList[numThreads].context.uc_stack.ss_flags = 0;
@@ -255,29 +253,47 @@ int mythread_detach(){
 
 }
 
+/**
+ * Start mutex selected 
+ * param pLock: Mutex to Start
+*/
 int mymutex_init(mutextType* pLock){
 		pLock->flag=0;
 		return 0;
 }
 
-
+/**
+ * Destroy mutex selected
+ * param pLock: Mutex to destroy
+*/
 int mymutex_destroy(mutextType* pLock){
 	free(pLock);
 	return 0;
 }
 
 
+/**
+ * Lock the context when executing a user level thread.
+ * @param pLock: mutext to lock
+*/
 int mymutex_lock(mutextType* pLock){
 		while(pLock->flag==1){}
 		pLock->flag=1;
 		return 0;
 }
-
+/**
+ * Releasing the lock of the context when executing a user level thread.
+ * @param pLock: mutext to unlock
+*/
 int mymutex_unlock(mutextType* pLock){
 	pLock->flag=0;
 	return 0;
 }
 
+/**
+ * Lock the context if it is free when executing a user level thread.
+ * @param pLock: mutext to lock
+*/
 int mymutex_trylock(mutextType* pLock){
 	if(pLock->flag==1){
 		return 1;

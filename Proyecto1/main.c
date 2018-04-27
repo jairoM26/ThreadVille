@@ -7,7 +7,7 @@
 
 int BRIDGE_SIZE = 0, SCHEDULER = 0, AVARAGE_SPEED = 0, DEBUGGER = 0,  RIGHT_OFFICER = 0, LEFT_OFFICER = 0, 
     TRAFFIC_CONTROL_B1 = 0, TRAFFIC_CONTROL_B2 = 0, TRAFFIC_CONTROL_B3 = 0, SEM_TIME_L = 0, SEM_TIME_R = 0, 
-    A_P = 0, R_P = 0, MY_PTHREAD = 0;
+    A_P = 0, R_P = 0, MY_PTHREAD = 0, BRIDGE_TO_PRINT = 0, HARDWARE_AVAILABLE = 0;
 double DISTRIBUTION = 0.0;
 extern bridge* bridge1;
 
@@ -29,6 +29,8 @@ void initConfig(){
   A_P = pconf->ambulance_percentage;
   R_P = pconf->radioactive_percentage;
   MY_PTHREAD = pconf->myThread;
+  BRIDGE_TO_PRINT = pconf->bridge_to_print;
+  HARDWARE_AVAILABLE = pconf->hardware_available;
   if (DEBUGGER) printf( "bridgeSize: %d  scheduler: %d  avgSpeed: %d debbuger: %d distribution %lf \n traffic_control_B1: %d traffic_control_B2: %d traffic_control_B3: %d \n right_officer: %d leftt_officer: %d sem_time_L: %d sem_time_R: %d \n ambulance percentage: %d radioactive_percentage: %d \n my_thread %d \n",BRIDGE_SIZE, SCHEDULER, AVARAGE_SPEED, DEBUGGER, DISTRIBUTION,  TRAFFIC_CONTROL_B1, TRAFFIC_CONTROL_B2, TRAFFIC_CONTROL_B3, RIGHT_OFFICER, LEFT_OFFICER, SEM_TIME_L, SEM_TIME_R, A_P, R_P, MY_PTHREAD);      
 }
 
@@ -43,9 +45,9 @@ int main(){
     initBridge(bridge1, BRIDGE_SIZE);
     initBridge(bridge2, BRIDGE_SIZE);
     initBridge(bridge3, BRIDGE_SIZE);
-    int valid[8];
+    int valid[7];
     if(MY_PTHREAD){
-      myThread thread[8];
+      myThread thread[7];
       mutextType lock;
       mythread_setsched(SCHEDULER); //set scheduler
       mythread_attr_t* attr = calloc(1,sizeof(mythread_attr_t));
@@ -54,47 +56,56 @@ int main(){
 	    attr->QUANTUM=1;
       mymutex_init(&lock);
 
-      valid[0] = mythread_create(&thread[0], attr, create_cars, (void *)(bridge1->inrightQueue));     
-      valid[1] = mythread_create(&thread[1], attr, create_cars, (void *)(bridge1->inLeftQueue));
+      valid[0] = mythread_create(&thread[0], attr, create_cars, (void *)(bridge1));     
+      valid[1] = mythread_create(&thread[1], attr, create_cars, (void *)(bridge2));
+      valid[2] = mythread_create(&thread[2], attr, create_cars, (void *)(bridge3));
 
-      if(TRAFFIC_CONTROL_B1 == 0)valid[6] = mythread_create(&thread[6], attr, semaphoreAlg, (void *)(bridge1));
-      else if(TRAFFIC_CONTROL_B1 == 1)valid[6] = mythread_create(&thread[6], attr, officer, (void *)(bridge1));
-      else if(TRAFFIC_CONTROL_B1 == 2)valid[6] = mythread_create(&thread[6], attr, jungleLaw, (void *)(bridge1));
-      valid[7] = mythread_create(&thread[7], attr, bridgeChar, (void *)(bridge1));
+      if(TRAFFIC_CONTROL_B1 == 0)valid[3] = mythread_create(&thread[3], attr, semaphoreAlg, (void *)(bridge1));
+      else if(TRAFFIC_CONTROL_B1 == 1)valid[3] = mythread_create(&thread[3], attr, officer, (void *)(bridge1));
+      else if(TRAFFIC_CONTROL_B1 == 2)valid[3] = mythread_create(&thread[3], attr, jungleLaw, (void *)(bridge1));
+      
+      if(TRAFFIC_CONTROL_B2 == 0)valid[4] = mythread_create(&thread[4], attr, semaphoreAlg, (void *)(bridge2));
+      else if(TRAFFIC_CONTROL_B2 == 1)valid[4] = mythread_create(&thread[4], attr, officer, (void *)(bridge2));
+      else if(TRAFFIC_CONTROL_B2 == 2)valid[4] = mythread_create(&thread[4], attr, jungleLaw, (void *)(bridge2));
+      
+      if(TRAFFIC_CONTROL_B3 == 0)valid[5] = mythread_create(&thread[5], attr, semaphoreAlg, (void *)(bridge3));
+      else if(TRAFFIC_CONTROL_B3 == 1)valid[5] = mythread_create(&thread[5], attr, officer, (void *)(bridge3));
+      else if(TRAFFIC_CONTROL_B3 == 2)valid[5] = mythread_create(&thread[5], attr, jungleLaw, (void *)(bridge3));
+      valid[9] = mythread_create(&thread[6], attr, bridgeChar, (void *)(NULL));
       mythread_join();
     }
     else{
       //thread6
-      pthread_t thread [8];              
+      pthread_t thread [7];              
 
 
       //method to 
-      valid[0] = pthread_create(&thread[0], NULL, create_cars, (void *)(bridge1->inrightQueue));     
-      valid[1] = pthread_create(&thread[1], NULL, create_cars, (void *)(bridge1->inLeftQueue));
-      
-      /*valid[2] = pthread_create(&thread[2], NULL, create_cars, (void *)(bridge2->inrightQueue));     
-      valid[3] = pthread_create(&thread[3], NULL, create_cars, (void *)(bridge2->inLeftQueue)); 
-      valid[4] = pthread_create(&thread[4], NULL, create_cars, (void *)(bridge3->inrightQueue));     
-      valid[5] = pthread_create(&thread[5], NULL, create_cars, (void *)(bridge3->inLeftQueue));*/
-
+      valid[0] = pthread_create(&thread[0], NULL, create_cars, (void *)(bridge1));     
+      valid[1] = pthread_create(&thread[1], NULL, create_cars, (void *)(bridge2));      
+      valid[2] = pthread_create(&thread[2], NULL, create_cars, (void *)(bridge3));
       
 
-      if(TRAFFIC_CONTROL_B1 == 0)valid[6] = pthread_create(&thread[6], NULL, semaphoreAlg, (void *)(bridge1));
-      else if(TRAFFIC_CONTROL_B1 == 1)valid[6] = pthread_create(&thread[6], NULL, officer, (void *)(bridge1));
-      else if(TRAFFIC_CONTROL_B1 == 2)valid[6] = pthread_create(&thread[6], NULL, jungleLaw, (void *)(bridge1));
-      valid[7] = pthread_create(&thread[7], NULL, bridgeChar, (void *)(bridge1));
-      /*if(TRAFFIC_CONTROL_B2 == 0)valid[7] = pthread_create(&thread[7], NULL, semaphoreAlg, (void *)(bridge2));
-      else if(TRAFFIC_CONTROL_B2 == 1)valid[7] = pthread_create(&thread[7], NULL, officer, (void *)(bridge2));
-      else if(TRAFFIC_CONTROL_B2 == 2)valid[7] = pthread_create(&thread[7], NULL, jungleLaw, (void *)(bridge2));
-      */
-      //TO_DO instancias puente 3 en un hilo
+      if(TRAFFIC_CONTROL_B1 == 0)valid[3] = pthread_create(&thread[3], NULL, semaphoreAlg, (void *)(bridge1));
+      else if(TRAFFIC_CONTROL_B1 == 1)valid[3] = pthread_create(&thread[3], NULL, officer, (void *)(bridge1));
+      else if(TRAFFIC_CONTROL_B1 == 2)valid[3] = pthread_create(&thread[3], NULL, jungleLaw, (void *)(bridge1));
+      
+      if(TRAFFIC_CONTROL_B2 == 0)valid[4] = pthread_create(&thread[4], NULL, semaphoreAlg, (void *)(bridge2));
+      else if(TRAFFIC_CONTROL_B2 == 1)valid[4] = pthread_create(&thread[4], NULL, officer, (void *)(bridge2));
+      else if(TRAFFIC_CONTROL_B2 == 2)valid[4] = pthread_create(&thread[4], NULL, jungleLaw, (void *)(bridge2));
 
-      //if any error in creating threads
+      if(TRAFFIC_CONTROL_B3 == 0)valid[5] = pthread_create(&thread[5], NULL, semaphoreAlg, (void *)(bridge3));
+      else if(TRAFFIC_CONTROL_B3 == 1)valid[5] = pthread_create(&thread[5], NULL, officer, (void *)(bridge3));
+      else if(TRAFFIC_CONTROL_B3 == 2)valid[5] = pthread_create(&thread[5], NULL, jungleLaw, (void *)(bridge3));
+      
+      valid[9] = pthread_create(&thread[6], NULL, bridgeChar, (void *)NULL);      
+    }    
+
+    //if any error in creating threads
       if (valid[0]){
         printf("ERROR; return code from pthread_create() 0 is %d\n", valid[0]);     
         exit(-1);
       }
-      /*if (valid[1]){
+      if (valid[1]){
         printf("ERROR; return code from pthread_create() 1 is %d\n", valid[1]);     
         exit(-1);
       }
@@ -114,11 +125,6 @@ int main(){
         printf("ERROR; return code from pthread_create() 6 is %d\n", valid[6]);     
         exit(-1);
       }
-      if (valid[7]){
-        printf("ERROR; return code from pthread_create() 7 is %d\n", valid[7]);     
-        exit(-1);
-      }*/
       pthread_exit(NULL);
-    }    
     return 0;
 }
