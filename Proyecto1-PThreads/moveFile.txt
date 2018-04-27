@@ -2,19 +2,43 @@ bridge1 with algorithm: Semaphore with flag in: 1 and bridge behavor: nnnannnnnn
 bridge2 with algorithm: oficer with flag in: 0 and bridge behavor: nnnnnnnnnnnnn
 bridge3 with algorithm: Jungle Law with flag in: 1 and bridge behavor: nnnnnnnnnnnnn
 ---------------------------------------------------------------------------- 
-bridge1 with algorithm: Semaphore with flag in: 1 and bridge behavor: nnnannnnnnnnn
-bridge2 with algorithm: oficer with flag in: 0 and bridge behavor: nnnnnnnnnnnnn
-bridge3 with algorithm: Jungle Law with flag in: 1 and bridge behavor: nnnnnnnnnnnnn
+bridge1 with algorithm: Semaphore with flag in: 1 and bridge behavor: nnnannnnCnnnn
+bridge2 with algorithm: oficer with flag in: 0 and bridge behavor: nnnnannnnCnnn
+bridge3 with algorithm: Jungle Law with flag in: 1 and bridge behavor: nnncannnnnnnn
 ---------------------------------------------------------------------------- 
-bridge1 with algorithm: Semaphore with flag in: 1 and bridge behavor: nnnannnnnnnnn
-bridge2 with algorithm: oficer with flag in: 0 and bridge behavor: nnnnannnnnnnn
-bridge3 with algorithm: Jungle Law with flag in: 1 and bridge behavor: nnnnannnnnnnn
+bridge1 with algorithm: Semaphore with flag in: 1 and bridge behavor: nnarnnnCnnnnn
+bridge2 with algorithm: oficer with flag in: 0 and bridge behavor: nnnnnannnCnnn
+bridge3 with algorithm: Jungle Law with flag in: 1 and bridge behavor: nncrnannnnnnn
 ---------------------------------------------------------------------------- 
-bridge1 with algorithm: Semaphore with flag in: 1 and bridge behavor: nnnannnnnnnnn
-bridge2 with algorithm: oficer with flag in: 0 and bridge behavor: nnnnannnnnnnn
-bridge3 with algorithm: Jungle Law with flag in: 1 and bridge behavor: nnnnannnnnnnn
+bridge1 with algorithm: Semaphore with flag in: 1 and bridge behavor: ncarnnCnnnnnn
+bridge2 with algorithm: oficer with flag in: 0 and bridge behavor: nnnnrnannCCnn
+bridge3 with algorithm: Jungle Law with flag in: 1 and bridge behavor: nnccrnannnnnn
 ---------------------------------------------------------------------------- 
-bridge1 with algorithm: Semaphore with flag in: 1 and bridge behavor: nnnannnnnnnnn
-bridge2 with algorithm: oficer with flag in: 0 and bridge behavor: nnnnnannnnnnn
-bridge3 with algorithm: Jungle Law with flag in: 1 and bridge behavor: nnnnnannnnnnn
+bridge1 with algorithm: Semaphore with flag in: 1 and bridge behavor: ncarnCnnnnnnn
+bridge2 with algorithm: oficer with flag in: 0 and bridge behavor: nnnnnrnanRCCn
+bridge3 with algorithm: Jungle Law with flag in: 1 and bridge behavor: nnncnrnanRnnn
+---------------------------------------------------------------------------- 
+bridge1 with algorithm: Semaphore with flag in: 1 and bridge behavor: ncarCnnnRAnnn
+bridge2 with algorithm: oficer with flag in: 0 and bridge behavor: nnnnnnrnaRCCn
+bridge3 with algorithm: Jungle Law with flag in: 1 and bridge behavor: nnnrcnrnaRnnn
+---------------------------------------------------------------------------- 
+bridge1 with algorithm: Semaphore with flag in: 1 and bridge behavor: ncarnnnRnAnnn
+bridge2 with algorithm: oficer with flag in: 0 and bridge behavor: nnnnrnnrnRACC
+bridge3 with algorithm: Jungle Law with flag in: 1 and bridge behavor: nncrccnrnRnnn
+---------------------------------------------------------------------------- 
+bridge1 with algorithm: Semaphore with flag in: 1 and bridge behavor: ncarnnRnAnnnn
+bridge2 with algorithm: oficer with flag in: 0 and bridge behavor: nnnnnrnnrRRCC
+bridge3 with algorithm: Jungle Law with flag in: 1 and bridge behavor: nnncnccnrRRnn
+---------------------------------------------------------------------------- 
+bridge1 with algorithm: Semaphore with flag in: 1 and bridge behavor: acrrnRnARnnnn
+bridge2 with algorithm: oficer with flag in: 0 and bridge behavor: nnnnnnrnnRRCC
+bridge3 with algorithm: Jungle Law with flag in: 1 and bridge behavor: nnncrnccnRRnn
+---------------------------------------------------------------------------- 
+bridge1 with algorithm: Semaphore with flag in: 1 and bridge behavor: acrrRnARnnnnn
+bridge2 with algorithm: oficer with flag in: 0 and bridge behavor: nnnncnnrnRRCC
+bridge3 with algorithm: Jungle Law with flag in: 1 and bridge behavor: nncarrnccRRnn
+---------------------------------------------------------------------------- 
+bridge1 with algorithm: Semaphore with flag in: 0 and bridge behavor: acrrnARnnRnnn
+bridge2 with algorithm: oficer with flag in: 0 and bridge behavor: nnnrrcnnrRRCC
+bridge3 with algorithm: Jungle Law with flag in: 1 and bridge behavor: nnncnrrncRRCn
 ---------------------------------------------------------------------------- 

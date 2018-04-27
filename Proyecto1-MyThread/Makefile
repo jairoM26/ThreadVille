@@ -19,6 +19,7 @@ run:
 install:
 	sudo usermod -a -G dialout $(USER)
 	sudo chmod a+rw /dev/ttyACM0
+	sudo apt-get install python3-tk
 
 #for removing files created
 clean:
