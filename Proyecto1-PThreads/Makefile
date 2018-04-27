@@ -16,6 +16,10 @@ OBJ = main.o priority_queue.o car.o  carManager.o bridge.o mythread.o arduino-se
 run:
 	./bin/exec
 
+install:
+	sudo usermod -a -G dialout $(USER)
+	sudo chmod a+rw /dev/ttyACM0
+
 #for removing files created
 clean:
 	rm -f ./bin/exec $(OBJ)
