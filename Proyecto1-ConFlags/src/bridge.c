@@ -782,7 +782,8 @@ void *bridgeChar(void* pBridge){
                         bridge2->inLeftQueue->stringQ, tmp21, bridge2->list.stringInBridge, tmp22, bridge2->inrightQueue->stringQ,
                         bridge3->inLeftQueue->stringQ, tmp31, bridge3->list.stringInBridge, tmp32, bridge3->inrightQueue->stringQ,
                         BRIDGE_TO_PRINT);
-            writeSerial(data, "/dev/ttyACM0");           
+            writeSerial(data, "/dev/ttyACM0");  
+            printf("data: %s \n", data);         
         }
 
         fclose(moveFile);

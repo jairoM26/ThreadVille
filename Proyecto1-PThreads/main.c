@@ -68,7 +68,7 @@ int main(){
     else if(TRAFFIC_CONTROL_B3 == 1)valid[5] = pthread_create(&thread[5], NULL, officer, (void *)(bridge3));
     else if(TRAFFIC_CONTROL_B3 == 2)valid[5] = pthread_create(&thread[5], NULL, jungleLaw, (void *)(bridge3));
     
-    valid[9] = pthread_create(&thread[6], NULL, bridgeChar, (void *)NULL);      
+    valid[6] = pthread_create(&thread[6], NULL, bridgeChar, (void *)NULL);      
     
 
   //if any error in creating threads
