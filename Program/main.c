@@ -5,15 +5,25 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <unistd.h>
+<<<<<<< HEAD
 /*
 #include "car.h"
 //#include "queue.c"*/
+=======
+
+#include "car.h"
+//#include "queue.c"
+>>>>>>> de61c52e754e4f5db88eba1dfd6da58e327c8940
  
 //void list_with_ints();
 //void list_with_strings();
  
 //void free_string(void *data);
+<<<<<<< HEAD
 /* #define NUM_THREADS 4
+=======
+ #define NUM_THREADS 4
+>>>>>>> de61c52e754e4f5db88eba1dfd6da58e327c8940
 
 int main(int argc, char *argv[])
 {
@@ -51,7 +61,11 @@ int main(int argc, char *argv[])
 
     pthread_create( &thread[i], NULL, carManager, (void*)& newCar2);
     usleep(1000);
+<<<<<<< HEAD
   }*/
+=======
+  }
+>>>>>>> de61c52e754e4f5db88eba1dfd6da58e327c8940
 
   /* block until all threads complete */
   
@@ -59,10 +73,17 @@ int main(int argc, char *argv[])
     pthread_join(thread[j], NULL);
   }  */
 
+<<<<<<< HEAD
  /* while(1);
 
   return 0;
 */
+=======
+  while(1);
+
+  return 0;
+
+>>>>>>> de61c52e754e4f5db88eba1dfd6da58e327c8940
 
  
 
@@ -94,6 +115,7 @@ void list_with_strings()
 void free_string(void *data)
 {
   free(*(char **)data);
+<<<<<<< HEAD
 }*/
 
 
@@ -151,3 +173,6 @@ int main()
  
     return 0;
 }
+=======
+}*/
+>>>>>>> de61c52e754e4f5db88eba1dfd6da58e327c8940
